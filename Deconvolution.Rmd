@@ -84,10 +84,10 @@ source("data.R")
 Run methods on recent data:
 
 ```{r}
-deconvolve_single_curve = function(curve, params)
+deconvolve_single_curve = function(curve, parms)
 {
   #simple
-  simple=deconvolve_infection_curve_simple(curve,params[1])
+  simple=deconvolve_infection_curve_simple(curve,parms[1])
   #random
   random=deconvolve_infection_curve_random(curve,generate_incubation_period, trials=100, distribution="gamma", parms=parms)
   #ridge
@@ -118,7 +118,7 @@ deconvolve_single_curve = function(curve, params)
   curves = list(curve, simple, random, ridge, rl, frequency, frequency, average)
   return(curves)
 }
-results = deconvolve_single_curve(curve = outbreak_cov, params = params)
+results = deconvolve_single_curve(curve = outbreak_cov, parms = parms)
 ```
 
 Final graphs:
@@ -138,8 +138,8 @@ Possibly run everything again for a second deconvolution:
 #newmean=5.5
 #newsd=2.6
 #newcurve=results$average
-#params = c(newmean, newsd)
-#nextresults = deconvolve_single_curve(curve = newcurve, params = params)
+#parms = c(newmean, newsd)
+#nextresults = deconvolve_single_curve(curve = newcurve, parms = parms)
 
 ```
 
