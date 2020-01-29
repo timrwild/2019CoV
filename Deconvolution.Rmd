@@ -15,7 +15,8 @@ shape=6.2
 mean=5.6
 scale=mean/shape
 sd=sqrt(shape*scale^2)
-params=c(mean,sd)
+parms=c(mean,sd)
+distribution="gamma"
 
 ```
 
@@ -115,7 +116,7 @@ deconvolve_single_curve = function(curve, parms)
   
   average=deconvolve_infection_curve_average(deconvolutions)
   
-  curves = list(curve, simple, random, ridge, rl, frequency, frequency, average)
+  curves = list(curve=curve, simple=simple, random=random, ridge=ridge, rl=rl, fourier=fourier, frequency=frequency, average=average)
   return(curves)
 }
 results = deconvolve_single_curve(curve = outbreak_cov, parms = parms)
