@@ -4,7 +4,7 @@ library(signal)
 library(ggplot2)
 library(reshape2)
 library(mosaic)
-
+library(ModelMetrics)
 
 
 #' Simulates different methods of deconvoluting desired outbreak difficulties.
@@ -690,6 +690,7 @@ deconvolve_infection_curves_simple = function(symptom_onset_curves,
 #' @export
 deconvolve_infection_curve_simple = function(symptom_onset_curve, median_incubation_period)
 {
+  median_incubation_period=round(median_incubation_period)
   outbreak_duration = length(symptom_onset_curve)
   deconvolved_infection_curve_simple = c(symptom_onset_curve[(median_incubation_period + 1):outbreak_duration], 
                                          rep(0, times = median_incubation_period))
@@ -1073,7 +1074,7 @@ deconvolve_infection_curve_frequency = function(symptom_onset_curve, matrix, inc
 {
   identity_matrix = diag(nrow(matrix))
   deconvolved_infection_curve_frequency = c()
-  for(i in (incubation_length/2):(length(symptom_onset_curve) + (incubation_length/2) - 1))
+  for(i in round((incubation_length/2)):min(round(length(symptom_onset_curve) + (incubation_length/2) - 1),length(matrix[,1])))
   {
     patients_infected = identity_matrix[i,] %*% matrix %*% symptom_onset_curve
     patients_infected = sqrt(Re(patients_infected)^2 + Im(patients_infected)^2)

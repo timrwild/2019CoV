@@ -53,6 +53,8 @@ boxplot(  hard_cov$hard$deconvolution_simple_rmse
           , names=c("Simple","Random","Ridge","RL","Fourier","Frequency","Average")
           , main="100 hard simulated outbreaks, mean=5.6, sd=2.25, RMSE")
 
+
+
 ###### Current Outbreak ######
 #symptom curve - derived from confirmed cases - 1/25
 outbreak_cov=c(rep(4,times=10), 0, rep(1,times=4),17,59,77,93,149,131,259,457,164)
@@ -77,25 +79,27 @@ fourier_filter_kernel = construct_fourier_filter_kernel(distribution = distribut
 fourier=deconvolve_infection_curve_fourier(outbreak_cov,fourier_filter_kernel)
 #frequency filter
 frequency_matrix = find_frequency_matrix(length(outbreak_cov), distribution = distribution, parms = parms)
+matrix=frequency_matrix
 incubation_length = determine_incubation_length(distribution, parms)
 frequency=deconvolve_infection_curve_frequency(outbreak_cov,frequency_matrix,incubation_length)
 
 #list of estimates to average
-deconvolutions=list(c(0,simple)
+deconvolutions=list(c(simple)
                     , random
                     , ridge
                     , rl
                     #, frequency
-                    , frequency)
+                    , c(frequency,0,0,0))
 
 average=deconvolve_infection_curve_average(deconvolutions)
 
 plot(outbreak_cov)
 plot(average, main='Wuhan Outbreak Infection Curve')
+for(method in deconvolutions){
+  plot(method)
+}
+sum(simple)
+sum(outbreak_cov)
 
-
-
-
-
-
-
+symptom_onset_curve=outbreak_cov
+median_incubation_period=5.6
