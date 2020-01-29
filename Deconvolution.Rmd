@@ -7,7 +7,7 @@ output: html_document
 
 Getting all the functions needed and setting initial parameters (subject to change).
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, cache=TRUE}
 
 source("package.R")
 
@@ -15,13 +15,13 @@ shape=6.2
 mean=5.6
 scale=mean/shape
 sd=sqrt(shape*scale^2)
-parms=c(mean,sd)
+params=c(mean,sd)
 
 ```
 
 Simulate outbreaks to test the accuracy of the model.
 
-```{r cars}
+```{r cars, cache=TRUE}
 
 easy_cov = simulate_trials(n=100, mean=mean, sd=sd, distribution="gamma", rl0="random", difficulty = c("easy"))
 medium_cov = simulate_trials(n=100, mean=mean, sd=sd, distribution="gamma", rl0="random", difficulty = c("medium"))
