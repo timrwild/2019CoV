@@ -71,7 +71,7 @@ for(i in 1:30){
 obs.star=-obs.star
 
 final_results=list()
-for (i in 477:R) {
+for (i in 1:R) {
   print(i)
   obs.star[obs.star[,i]<0,i]=0
   results = deconvolve_single_curve(curve = obs.star[,i], parms = parms)
