@@ -103,3 +103,13 @@ sum(outbreak_cov)
 
 symptom_onset_curve=outbreak_cov
 median_incubation_period=5.6
+
+
+
+
+
+# The deconvolution backs us up a full incubation period, so any deconvolution is 8 days behind current reporting. We need to forecast ahead those 8 days to get to "now." I haven't been able to get anything to forecast one day, if that. 
+
+
+
+
