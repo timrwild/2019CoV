@@ -1,4 +1,6 @@
 
+
+##### deconvolution info #####
 shape=6.2
 mean=5.6
 scale=mean/shape
@@ -43,9 +45,8 @@ deconvolve_single_curve = function(curve, parms)
   return(curves)
 }
 
-deconvolve_single_curve(outbreak_cov, parms = parms)
+##### pull first part of outbreak and bootstrap residuals #####
 
-plot(y)
 y=outbreak_cov[1:29]
 numlags = 8 # choose the model..
 n = length(y)
@@ -70,6 +71,8 @@ for(i in 1:30){
 }
 obs.star=-obs.star
 
+##### Deconvolve each of the samples #####
+
 final_results=list()
 for (i in 1:R) {
   print(i)
@@ -77,17 +80,10 @@ for (i in 1:R) {
   results = deconvolve_single_curve(curve = obs.star[,i], parms = parms)
   final_results[[i]]=results$average
 }
-test=c(0,0,0,0,-1,2)
-test[test<0]=1
 
-for(i in 1:8){
-  print(i)
-  plot(final_results[[i]], main=i) 
+data = as.data.frame(final_results[[1]],ncol=1)
+for (i in 2:1000) {
+  if(length(final_results[[i]])==29) 
+    data=cbind(data, final_results[[i]])
 }
-final_results[[2]]
-results$curve
-
-
-
-
 
